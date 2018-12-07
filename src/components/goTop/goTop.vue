@@ -46,7 +46,7 @@
 <style lang="less" rel="stylesheet/less">
   @import "../../common/stylus/mixins";
   .goTop{
-    position:absolute;
+    position:fixed;
     z-index:99;
     bottom: 120px;
     right:34px;

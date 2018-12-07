@@ -10,28 +10,29 @@
   </head>
   <body>
     <div id="app"></div>
-    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
 
-    <!-- built files will be auto injected -->
-    <script>
-      if ('addEventListener' in document) {
-        document.addEventListener('DOMContentLoaded', function() {
-          FastClick.attach(document.body);
-        }, false);
-      }
-      if(!window.Promise) {
-        document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
-      }
-
-
-      ;(function () {
-        let styleNode = document.createElement('style')
-        console.log(document.documentElement.clientWidth)
-        let w = document.documentElement.clientWidth / 10;
-        styleNode.innerHTML = "html{font-size: " + w +"px!important}"
-        document.head.appendChild(styleNode)
-      })();
-
-    </script>
   </body>
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+
+  <!-- built files will be auto injected -->
+  <script>
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }
+    if(!window.Promise) {
+      document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+    }
+
+
+    ;(function () {
+      let styleNode = document.createElement('style')
+      console.log(document.documentElement.clientWidth)
+      let w = document.documentElement.clientWidth / 10;
+      styleNode.innerHTML = "html{font-size: " + w +"px!important}"
+      document.head.appendChild(styleNode)
+    })();
+
+  </script>
 </html>

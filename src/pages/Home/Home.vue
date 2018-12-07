@@ -12,15 +12,14 @@
             </div>
           </div>
         </div>
-        <div class="hdScrollX">
-          <div class="hdScrollItem" ref="hdScrollItem">
-            <span :class="{active: index=== activeIndex}" v-for="(item, index) in data"
-            :key="index" ref="hdScroll" @click="active(index)">{{item.name}}</span>
+        <div class="hdScorllX">
+          <div class="hdScorllItem" ref="hdScorllItem">
+            <span :class="{active:index === activeIndex}" v-for="(item, index) in data" :key="index" ref="hdScorll" @click="active(index)">{{item.name}}</span>
           </div>
         </div>
       </div>
       <div class="swiper-container" v-if="banner.length>0">
-        <div class="swiper-wraper">
+        <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in banner" :key="index">
             <img v-lazy="item.picUrl">
           </div>
@@ -80,7 +79,7 @@
               <div class="title">新品</div>
               <div class="name">{{item.name}}</div>
               <div class="newItemDesc">{{item.simpleDesc}}</div>
-              <div class="price">{{itme.retailPrice}}￥</div>
+              <div class="price">{{item.retailPrice}}￥</div>
             </div>
           </div>
         </div>
@@ -90,7 +89,7 @@
       </div>
       <div class="m-indexFloor">
         <div class="hd">
-          <div class="hd-wrap">
+          <div class="hd-Wrap">
             <span>专题精选</span>
             <i class="iconfont icon-yuanjiantou1"></i>
           </div>
@@ -114,6 +113,7 @@
     <HomeFooter></HomeFooter>
   </div>
 </template>
+
 
 <script>
   import {mapState} from 'vuex'
@@ -145,7 +145,7 @@
         })
       })
       this.$store.dispatch('getBanner')
-      new Swipper('.swiper-container',{
+      new Swiper('.swiper-container',{
         effect: "fade", //消失
         loop: true,
         autoplay:{
@@ -165,7 +165,7 @@
       },
       //初始化滚动
       _initScroll(){
-        new BScroll('.hdScrollX', {
+        new BScroll('.hdScorllX', {
           click: true,
           scrollX: true
         })
@@ -205,45 +205,44 @@
     }
   }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus"scoped>
-  @import "../../common/stylus/mixins.styl";
+<style lang="less">
+  @import '../../common/stylus/mixins';
   #scrollWrap{
     width: 100%;
     overflow: hidden;
   }
   .homeContainer{
-    background: #f4f4f4;
+    background: #F4F4F4;
     overflow: hidden;
     .headerWrap{
-      background: #f4f4f4;
-      overflow:hidden;
+      background: #F4F4F4;
+      overflow: hidden;
       position: fixed;
-      z-inde: 100;
+      z-index: 100;
       top: 0;
       width: 100%;
     }
-    .homeHd{
-      background: #fff;
+    .homeHd {
+      background: #ffffff;
       padding: 16px;
       width: 100%;
       height: 75/@rem;
-      display:flex;
+      display: flex;
       justify-content: space-between;
       align-items: center;
       span{
         width: 24%;
-        font-size: 34/@rem;
+        font-size:34/@rem;
         font-weight: bold;
       }
       .search{
         width: 70%;
         height: 60/@rem;
         font-size: .37333/@rem;
-        background-color:#ededed;
+        background-color: #ededed;
         border-radius: .10667/@rem;
         display: flex;
-        align-items:center;
+        align-items: center;
         justify-content: center;
         margin-right: 34px;
         .sContent{
@@ -251,32 +250,34 @@
             font-size: .37333*75/@rem;
           }
           span{
-            color:#666;
+            color: #666666;
             font-size: .37333*75/@rem;
           }
         }
       }
     }
-    .hdScrollX{
-      width:100%;
-      overflow:hidden;
-      background:#fff;
-      display:flex;
+    .hdScorllX{
+      width: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
       padding: 0 0 12px 0;
-      .hdScrollItem{
+      .hdScorllItem{
         padding: 0 0 12px 0;
         display: flex;
-        justify-content: space-between; //两端等间距排列
+        justify-content: space-between;
         align-items: center;
         span{
           width: 70px;
-          text-align:center;
-          flex-shrink: 0; //子元素不缩小
-          flex-wrap: nowrap; //不拆行或不拆列
-          margin: 0 .5*75/@rem;//@rem: 750/10rem;
-          font-size:.37333*75/@rem;
+          text-align: center;
+          flex-shrink:0;
+          flex-wrap:nowrap;
+          margin: 0 .5*75/@rem;
+          font-size: .37333*75/@rem;
           &.active{
             padding: 0 0 12px 0;
+            border-bottom: 3px solid #b4282d;
+            color: #b4282d;
           }
         }
       }
@@ -284,8 +285,10 @@
     .swiper-container{
       margin-top: 152px;
       .swiper-wrapper{
-        img{
-          width: 100%;
+        .swiper-slide{
+          img{
+            width: 100%;
+          }
         }
       }
     }
@@ -306,7 +309,7 @@
           vertical-align: middle;
         }
         span{
-          font-size: .32*75/@rem; //即0.32rem
+          font-size: .32*75/@rem;
           color: #333;
           line-height: .42667*75/@rem;
           vertical-align: middle;
@@ -316,7 +319,7 @@
     }
     .m-indexFloor{
       margin-bottom: .26667*75/@rem;
-      background-color: #fff;
+      background-color: #ffffff;
       .hd{
         display: flex;
         flex-flow: row nowrap;
@@ -333,7 +336,7 @@
           display: inline-block;
           margin-bottom: .10667*75/@rem;
           width: 42%;
-          height:3.14667*75/@rem;
+          height: 3.14667*75/@rem;
           overflow: hidden;
           background-color: #f4f4f4;
           padding: 18px;
@@ -342,7 +345,7 @@
             margin-left: 8px;
           }
           &:nth-child(1){
-            background:url("//yanxuan.nosdn.127.net/bcca932aeb9d818dcf6d3a4804f7311b.png");
+            background: url("//yanxuan.nosdn.127.net/bcca932aeb9d818dcf6d3a4804f7311b.png");
             background-size: 100%;
           }
           &:nth-child(2){
@@ -360,27 +363,31 @@
           h4{
             text-overflow: ellipsis;
             white-space: nowrap;
-            overflow:hidden;
-            color:#333;
+            overflow: hidden;
+            color: #333;
             font-size: .37333*75/@rem;
             line-height: .45333*75/@rem;
             margin-bottom: .08*75/@rem;
           }
+          .title{
+            font-size: .37333*75/@rem;
+          }
         }
+
       }
     }
     .m-newItems{
-      margin-top:-8px;
+      margin-top: -8px;
       margin-bottom: .26667*75/@rem;
       background-color: #fff;
       .newItemsWrap{
         background: url(//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/bitmap-d4f7b37e32.png);
-        background-size:10*75/@rem 3.46667*75/@rem;
-        height:3.46667*75/@rem;
+        background-size: 10*75/@rem 3.46667*75/@rem;
+        height: 3.46667*75/@rem;
         position: relative;
         span{
-          position:absolute;
-          top:20%;
+          position: absolute;
+          top: 20%;
           left: 50%;
           transform: translateX(-50%);
           font-size: .48*75/@rem;
@@ -393,50 +400,50 @@
           height: .74667*75/@rem;
           font-size: .37333*75/@rem;
           line-height: .74667*75/@rem;
-          background: #d8e5f1;
+          background: #D8E5F1;
           color: #8BA0B6;
-          position:absolute;
-          top:35%;
-          left:50%;
-          transform:translateX(-50%);
+          position: absolute;
+          top: 35%;
+          left: 50%;
+          transform: translateX(-50%);
         }
       }
       .m-goodGrid{
         padding-bottom: .3*75/@rem;
         margin-top: .3*75/@rem;
         height: 6.4*75/@rem;
-        background-color:#fff;
-        display:flex;
+        background-color: #fff;
+        display: flex;
         .list{
-          display:flex;
+          display: flex;
           flex-flow: row nowrap;
-          align-items:center;
+          align-items: center;
           justify-content: center;
           .goodGrid-item{
             margin-left: .4*75/@rem;
             width: 3.73333*75/@rem;
-            .wrapper{
+            .wraper{
               width: 3.73333*75/@rem;
               background-color: #f4f4f4;
               img{
-                width:100%;
-                background-size:100% 100%;
+                width: 100%;
+                background-size: 100% 100%;
               }
             }
             .title{
-              z-index:1;
+              z-index: 1;
               margin-top: -.2*75/@rem;
               margin-left: .2*75/@rem;
               height: .4*75/@rem;
               overflow: hidden;
-              background-color:#f48f18;
+              background-color: #f48f18;
               padding: .06667*75/@rem .21333*75/@rem;
               line-height: .26667*75/@rem;
-              text-algn:center;
-              color:#fff;
+              text-align: center;
+              color: #fff;
               font-size: .26667*75/@rem;
               border-radius: .02667*75/@rem;
-              display:inline-block;
+              display: inline-block;
               vertical-align: middle;
             }
             .name{
@@ -447,14 +454,14 @@
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-              color:#333;
+              color: #333;
               text-align: left;
             }
             .newItemDesc{
-              display:block;
+              display: block;
               margin-bottom: .18667*75/@rem;
               font-size: .32*75/@rem;
-              color:#7f7f7f;
+              color: #7f7f7f;
               line-height: .4*75/@rem;
               white-space: nowrap;
               text-overflow: ellipsis;
@@ -465,8 +472,8 @@
               padding: 0 .13333*75/@rem;
               font-size: .37333*75/@rem;
               text-align: left;
-              color:#b4282d;;
-              line-height:1;
+              color: #b4282d;
+              line-height: 1;
             }
           }
         }
@@ -475,14 +482,14 @@
     .m-sale{
       margin-top: .2*75/@rem;
       img{
-        width:100%;
+        width: 100%;
       }
     }
     .imgWrap{
-      display:flex;
+      display: flex;
       .img-scroll{
         margin-left: .3*75/@rem;
-        display:flex;
+        display: flex;
         justify-content: space-between;
         align-items: center;
         .imgItem{
@@ -491,9 +498,9 @@
           margin-bottom: .21333*75/@rem;
           border-radius: 8px;
           overflow: hidden;
-          float:left;
+          float: left;
           img{
-            width:100%;
+            width: 100%;
             margin-bottom: .1*75/@rem;
           }
           .line1{
@@ -503,31 +510,35 @@
             h4{
               white-space: nowrap;
               overflow: hidden;
-              -ms-text-overflow: ellipsis;
-              -o-text-overflow: ellipsis;
+               -ms-text-overflow: ellipsis;
+               -o-text-overflow: ellipsis;
               text-overflow: ellipsis;
               width: 5.46667*75/@rem;
-              float:left;
+              float: left;
               font-size: .37333*75/@rem;
             }
             span{
-              float:right;
+              float: right;
               font-size: .37333*75/@rem;
-              color:#b4282d;
+              color: #b4282d;
             }
           }
           .desc{
             white-space: nowrap;
             overflow: hidden;
-            -ms-text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
+             -ms-text-overflow: ellipsis;
+             -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
             width: 7.66667*75/@rem;
             font-size: .32*75/@rem;
-            color:#7f7f7f;
+            color: #7F7F7F;
           }
         }
       }
     }
   }
 </style>
+
+
+
+

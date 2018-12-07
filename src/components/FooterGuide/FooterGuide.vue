@@ -33,7 +33,7 @@
 
 <style lang="less" rel="stylesheet/less" scoped>
   @import "../../common/stylus/mixins";
-  .nav-container{
+  .navbar-container{
     border-top:1px solid #999;
     border-bottom: 1px solid #999;
     position:fixed;

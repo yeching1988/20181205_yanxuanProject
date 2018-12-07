@@ -6,6 +6,7 @@ const Home = () => import('../pages/Home/Home.vue')
 const List = () => import('../pages/List/List.vue')
 const Personal = () => import('../pages/Personal/Personal.vue')
 const ShopCart = () => import('../pages/ShopCart/ShopCart.vue')
+const NotFound = () => import('../pages/NotFound/NotFound.vue')
 
 import Interlayer from '../pages/Interlayer/Interlayer.vue'
 import Login from '../pages/Login/Login.vue'
@@ -63,8 +64,15 @@ export default new Router({
       }
     },
     {
+      path: '/*',
+      component: NotFound,
+      meta:{
+        isInterlayer: false
+      }
+    },
+    {
       path: '/',
-      redirect: '/home',
+      redirect: '/Home',
     },
   ]
 })

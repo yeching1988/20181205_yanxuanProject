@@ -3,7 +3,8 @@
     <transition name="fade">
       <div class="m-newWrapModal" v-if="isMask">
         <div class="mask"></div>
-        <i class="close" @click="isMask = false"></i> //与外层div显示相反
+        <!--与外层div显示相反-->
+        <i class="close" @click="isMask = false"></i>
         <div class="wrap">
           <div class="modle">
             <div class="title">
@@ -50,8 +51,10 @@
 <script>
   export default {
     data(){
-      return{}
-      isMask: true
+      return{
+        isMask: true
+      }
+
     }
   }
 </script>

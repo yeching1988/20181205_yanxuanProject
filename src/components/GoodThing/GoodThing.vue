@@ -1,15 +1,17 @@
 <template>
   <!--首页好物-->
   <div>
-    <div class="m-indexFloor" v-for="(item, index) in cateList" :key="index"></div>
-    <div class="m-titleGoodGrid">
-      <h3 class="title">{{itme.name}}好物</h3>
-      <div class="m-goodGrid">
-        <div class="wraper" v-for="(itemGoodGrid, index) in item.itemList" :key="index">
-          <img :src="itemGoodGrid.listPicUrl" alt="">
-          <div class="desc">{{itemGoodGrid.simpleDesc}}</div>
-          <div class="name">{{itemGoodGrid.name}}</div>
-          <span class="price">{{itemGoodGrid.couponPrice}}</span> //coupon:赠券
+    <div class="m-indexFloor" v-for="(item, index) in cateList" :key="index">
+      <div class="m-titleGoodGrid">
+        <h3 class="title">{{item.name}}好物</h3>
+        <div class="m-goodGrid">
+          <div class="wraper" v-for="(itemGoodGrid, index) in item.itemList" :key="index">
+            <img :src="itemGoodGrid.listPicUrl" alt="">
+            <div class="desc">{{itemGoodGrid.simpleDesc}}</div>
+            <div class="name">{{itemGoodGrid.name}}</div>
+            <!--coupon:赠券-->
+            <span class="price">{{itemGoodGrid.couponPrice}}</span>
+          </div>
         </div>
       </div>
     </div>
