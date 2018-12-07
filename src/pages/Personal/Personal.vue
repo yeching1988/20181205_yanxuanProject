@@ -1,5 +1,5 @@
 <template>
-  <!--个人中心页面-->
+  <!--个人-->
   <div>
     <ShiwuHeader></ShiwuHeader>
     <div class="loginTypesWrap">
@@ -8,11 +8,11 @@
           <img src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png" alt="">
         </div>
         <div class="btnWrap">
-          <div class="button-block" @click="goLogin(true)">
-            <i class="loginPhone"></i>
-            <span>账号登录</span>
+          <div class="button-block" @click="goLogoin(true)">
+            <i class="iconfont icon-phone"></i>
+            <span class="codeLogin">帐号登录</span>
           </div>
-          <div class="button-goRed" @click="goLogin(false)">
+          <div class="button-ghostRed" @click="goLogoin(false)">
             <i class="loginMail"></i>
             <span>短信登录</span>
           </div>
@@ -33,17 +33,16 @@
   export default {
     data(){
       return{
-
+        loginWay: ''
       }
     },
     computed:{
-      ...mapState(['loginWay'])
     },
     methods:{
-      goLogin(loginWay1){
+      goLogoin(loginWay1){
         this.loginWay = loginWay1
         this.$router.replace('/login')
-        this.$store.dispatch('setLoginWay',this.loginWay)
+        this.$store.dispatch('setLoginWay',this.loginWay )
       }
     },
     components: {
@@ -52,50 +51,51 @@
   }
 </script>
 
+
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../common/stylus/mixins";
+  @import '../../common/stylus/mixins';
   html,body{
     height: 100%;
     overflow: hidden;
   }
-  .loginTypesWrap{
+  .loginTypesWrap {
     padding-top: 88px;
-    .cont{
+    .cont {
       position: relative;
       height: 100%;
       background: #F2F5F4;
-      .loginWrap{
+      .logoWrap {
         text-align: center;
         padding-top: 2.13333*75/@rem;
         padding-bottom: 2.13333*75/@rem;
-        img{
+        img {
           width: 3.57333*75/@rem;
           height: 1.2*75/@rem;
         }
       }
-      .btnWrap{
+      .btnWrap {
         margin-bottom: .42667*75/@rem;
         padding: 0 .53333*75/@rem;
-        .loginPhone{
-          background-position: 0 -58px;
-          margin-right: .21333*75/@rem;
-          position: relative;
-          top: -.02667*75/@rem;
-          background-image: url(//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/login-s2d0d826858-b284a621da.png);
-          background-size: .53333*75/@rem 3.86667*75/@rem;
-          width: .53333*75/@rem;
-          height: .53333*75/@rem;
-          display: inline-block;
-          vertical-align: middle;
-          background-repeat: no-repeat;
-          .name{
+        background-color: #fff;
+        position: relative;
+        .icon-phone {
+          color:#fff;
+          font-size: 50px;
+          position:absolute;
+          top: 4px;
+          left:278px;
+          .name {
             line-height: 1.25333*75/@rem;
             font-size: .37333*75/@rem;
             color: #fff;
           }
         }
+        .codeLogin{
+          text-align: center;
+          margin-left: 60px;
+        }
       }
-      .ghostRed{
+      .ghostRed {
         margin-bottom: .42667*75/@rem;
         border-radius: 2px;
         display: block;
@@ -107,7 +107,7 @@
         text-align: center;
         border: 1px solid #b4282d;
         overflow: hidden;
-        .loginMail{
+        .loginMail {
           margin-right: .21333*75/@rem;
           position: relative;
           top: -.02667*75/@rem;
@@ -122,7 +122,7 @@
           color: #b4282d;
           text-align: center;
           font-size: .37333*75/@rem;
-          .name{
+          .name {
             line-height: 1.25333*75/@rem;
             color: #b4282d;
             text-align: center;
@@ -130,18 +130,18 @@
           }
         }
       }
-      .btn{
+      .btn {
         color: #333;
         font-size: .37333*75/@rem;
         text-align: center;
         width: 100%;
         line-height: 1.5;
-        .right3{
+        .right3 {
           color: #333;
           font-size: .37333*75/@rem;
           text-align: center;
           line-height: 1.5;
-          .name{
+          .name {
             margin-right: .21333*75/@rem;
             position: relative;
             top: -.02667*75/@rem;
@@ -195,7 +195,7 @@
           color: #fff;
         }
       }
-      .button-goRed{
+      .button-ghostRed{
         margin-bottom: .42667*75/@rem;
         border-radius: 2px;
         display: block;
@@ -258,5 +258,7 @@
         }
       }
     }
+
   }
 </style>
+

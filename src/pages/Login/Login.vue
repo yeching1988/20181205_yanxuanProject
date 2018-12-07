@@ -44,7 +44,7 @@
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha"/>
                 <img class="get_verification" src="../../common/img/captcha.svg"
-                     alt="captcha" ref="captcha" style="width:300px">
+                     alt="captcha" ref="captcha" style="width:300px" @click="updateCaptcha">
               </section>
             </section>
           </div>
@@ -67,7 +67,7 @@
   export default {
     data(){
       return{
-        //loginWay: false, //true代表短信登录,false代表密码登录
+        //loginWay: false, //true代表账号登录,false代表密码登录
         computeTime: 0, //计时的时间
         showPwd: false, //是否显示密码
         phone: '', //手机号
@@ -82,6 +82,7 @@
     computed:{
       ...mapState(['loginWay']),
       rightPhone(){
+        //判断phone是否是一个正确的手机号
         return /^1\d{10}$/.test(this.phone)
       }
     },
@@ -91,28 +92,38 @@
         this.alertText = alertText
       },
       //登录
-      login(){
+      async login(){
         let result
-        //前台表单验证
+        //1.前台表单验证
         if(!this.loginWay){ //短信登录
           let code = this.code
           if(!this.rightPhone){
-            //手机号不正确
-            return this.showAlert('手机号不正确')
-          }else if(!/^\d{6}$.test(code)/){
-            //验证码必须是6位数字
-             return this.showAlert('验证码必须是6位数字')
+            return this.showAlert('手机号必须指定')
           }
-        }else{ //密码登录
-          if(!this.name){
-            //用户名必须指定
-            return this.showAlert('用户名必须指定')
-          }else if(!this.pwd){
+          if(code.length < 4){
+            //验证码必须是6位数字
+            return this.showAlert('验证码至少是4位数字')
+          }else if(!code){
+            //验证码不能为空
+            return this.showAlert('验证码不能为空')
+          }
+
+        }else{ //用户名/手机号登录
+          if(!this.pwd){
             //密码必须指定
              return this.showAlert('密码必须指定')
           }else if(!this.captcha){
             //验证码必须指定
             return this.showAlert('验证码必须指定')
+          }
+          //4.发送登录的请求，以短信登录方式登录
+          result = await accountLogin({name, pwd, captcha})
+          if(result.code!==0){
+            //登录失败后更新图片验证码
+            this.updateCaptcha()
+          }
+          if(this.rightPhone.length===11 && this.loginWay){
+            return this.showAlert('手机号正确')
           }
         }
         this.showAlert('登陆成功，即将跳转到首页')
@@ -121,11 +132,16 @@
           this.closeTip()
         })
       },
-      //关闭警告框
+      //2.关闭警告框
       closeTip(){
         this.alertShow = false
         this.alertText = ''
+      },
+      //3.更新验证码
+      updateCaptcha(){
+        this.$refs.captcha.src = 'http://localhost:5000/captcha?time='+ Date.now()
       }
+
     },
     components: {
       ShiwuHeader,
@@ -134,173 +150,6 @@
   }
 </script>
 
-<!--<style lang="stylus" rel="stylesheet/stylus">-->
-  <!--//清除Chrome浏览器记住下 user agent stylesheet 给input设置的背景-->
-  <!--input:-webkit-autofill {-->
-    <!-- -webkit-box-shadow:0 0 0 100px white inset;-->
-    <!-- -webkit-text-fill-color: #666;-->
-  <!--}-->
-  <!--input:-webkit-autofill:focus {-->
-    <!-- -webkit-box-shadow:0 0 0 100px white inset;-->
-    <!-- -webkit-text-fill-color: #666;-->
-  <!--}-->
-  <!--.logoWrap-->
-    <!--text-align: center;-->
-    <!--padding-top: 1.13333rem;-->
-    <!--padding-bottom: .13333rem;-->
-    <!--img-->
-      <!--width: 3.57333rem;-->
-      <!--height: 1.2rem;-->
-  <!--.loginContainer-->
-    <!--width 100%-->
-    <!--height 100%-->
-    <!--background #FFFFFF-->
-    <!--.loginInner-->
-      <!--padding-top 60px-->
-      <!--width 80%-->
-      <!--margin 0 auto-->
-      <!--.login_header-->
-        <!--.login_logo-->
-          <!--font-size 40px-->
-          <!--font-weight bold-->
-          <!--color #333-->
-          <!--text-align center-->
-        <!--.login_header_title-->
-          <!--padding-top 40px-->
-          <!--text-align center-->
-          <!--&gt; a-->
-            <!--height: .53333rem;-->
-            <!--color: #7F7F7F;-->
-            <!--margin-left: .06667rem;-->
-            <!--font-size .4rem-->
-            <!--&:first-child-->
-              <!--margin-right 40px-->
-            <!--&.on-->
-              <!--color #b4282d-->
-              <!--font-weight 700-->
-      <!--.login_content-->
-        <!--margin-top 30px-->
-        <!--&gt; form-->
-          <!--&gt; div-->
-            <!--display none-->
-            <!--&.on-->
-              <!--display block-->
-            <!--input-->
-              <!--width 100%-->
-              <!--height 100%-->
-              <!--padding-left 10px-->
-              <!--box-sizing border-box-->
-              <!--border 1px solid #999-->
-              <!--border-radius 4px-->
-              <!--outline 0-->
-              <!--font-size: 0.4rem;-->
-              <!--&:focus-->
-                <!--border 1px solid #b4282d-->
-            <!--.login-message-->
-              <!--margin-bottom: .42667rem;-->
-              <!--border-radius: 2px;-->
-              <!--display: block;-->
-              <!--width: 100%;-->
-              <!--height: 1.25333rem;-->
-              <!--line-height: 1.25333rem;-->
-              <!--overflow: hidden;-->
-              <!--font-size: .37333rem;-->
-              <!--color: #fff;-->
-              <!--vertical-align: middle;-->
-              <!--text-align: center;-->
-              <!--margin-top 27px-->
-              <!--.get_verification-->
-                <!--position absolute-->
-                <!--top 51%-->
-                <!--right 60px-->
-                <!--transform translateY(-50%)-->
-                <!--border 0-->
-                <!--color #ccc-->
-                <!--font-size .4rem-->
-                <!--&img-->
-                  <!--width 100px-->
-                <!--&>input-->
-                  <!--margin-top 50px-->
-                  <!--background #ffffff!important-->
-                <!--&.right_phone-->
-                  <!--color black-->
-            <!--.login_verification-->
-              <!--position relative-->
-              <!--margin-top 16px-->
-              <!--height: 1.25333rem;-->
-              <!--font-size 14px-->
-              <!--background #fff-->
-              <!--.switch_button-->
-                <!--font-size 12px-->
-                <!--border 1px solid #ddd-->
-                <!--border-radius 8px-->
-                <!--transition background-color .3s, border-color .3s-->
-                <!--padding 0 6px-->
-                <!--width 70px-->
-                <!--height 31px-->
-                <!--line-height 16px-->
-                <!--color #fff-->
-                <!--position absolute-->
-                <!--top 50%-->
-                <!--right 10px-->
-                <!--transform translateY(-50%)-->
-                <!--&.off-->
-                  <!--background #fff-->
-                  <!--.switch_text-->
-                    <!--float right-->
-                    <!--color #ddd-->
-                <!--&.on-->
-                  <!--background #b4282d-->
-                <!--&gt; .switch_circle-->
-                  <!--position absolute-->
-                  <!--top -1px-->
-                  <!--left -1px-->
-                  <!--width 30px-->
-                  <!--height 30px-->
-                  <!--border 1px solid #ddd-->
-                  <!--border-radius 50%-->
-                  <!--background #fff-->
-                  <!--box-shadow 0 2px 4px 0 rgba(0, 0, 0, .1)-->
-                  <!--transition transform .3s-->
-                  <!--&.right-->
-                    <!--transform translateX(55px)-->
-                <!--&gt; .switch_text-->
-                  <!--font-size: 0.34rem;-->
-            <!--.login_hint-->
-              <!--margin-top 12px-->
-              <!--color #999-->
-              <!--font-size .3rem-->
-              <!--line-height .55rem-->
-              <!--&gt; a-->
-                <!--color #b4282d-->
-          <!--.login_submit-->
-            <!--display block-->
-            <!--width 100%-->
-            <!--margin-top 30px-->
-            <!--border-radius 4px-->
-            <!--background #b4282d-->
-            <!--color #fff-->
-            <!--text-align center-->
-            <!--font-size: 0.4rem;-->
-            <!--line-height 42px-->
-            <!--border 0-->
-            <!--height: 1.25333rem;-->
-        <!--.about_us-->
-          <!--display block-->
-          <!--margin-top 20px-->
-          <!--text-align center-->
-          <!--color #999-->
-          <!--font-size: 0.4rem;-->
-      <!--.go_back-->
-        <!--position absolute-->
-        <!--top 5px-->
-        <!--left 5px-->
-        <!--width 30px-->
-        <!--height 30px-->
-        <!--&gt; .iconfont-->
-          <!--font-size 20px-->
-          <!--color #999-->
-<!--</style>-->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   //清除Chrome浏览器记住密码下 user agent stylesheet 给input设置的背景
   input:-webkit-autofill {
@@ -470,3 +319,4 @@
           font-size 20px
           color #999
 </style>
+

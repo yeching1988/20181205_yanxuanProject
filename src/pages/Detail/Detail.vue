@@ -104,6 +104,10 @@
   .wrap{
     background:#f4f4f4;
     padding-bottom: 90/@rem;
+    .right{
+      width:20%;
+
+    }
   }
   .swiper-container{
     .swiper-wrapper{

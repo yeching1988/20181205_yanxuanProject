@@ -11,6 +11,7 @@
               <span>搜索商品，共9771款好物</span>
             </div>
           </div>
+          <button @click="$router.replace('/personal')">登录</button>
         </div>
         <div class="hdScorllX">
           <div class="hdScorllItem" ref="hdScorllItem">
@@ -236,7 +237,7 @@
         font-weight: bold;
       }
       .search{
-        width: 70%;
+        width: 60%;
         height: 60/@rem;
         font-size: .37333/@rem;
         background-color: #ededed;
@@ -244,7 +245,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 34px;
+        margin-right: 30px;
         .sContent{
           .icon-xingtaiduICON_sousuo--{
             font-size: .37333*75/@rem;
@@ -254,6 +255,19 @@
             font-size: .37333*75/@rem;
           }
         }
+      }
+      button{
+        margin-right: 40px;
+        font-size: 26px;
+        color:#b4282d;
+        width: .98667rem;
+        height: .53333rem;
+        line-height: .53333rem;
+        text-align: center;
+        border: 1px solid #b4282d;
+        border-radius: .10667rem;
+        background: #fff;
+        outline: none;
       }
     }
     .hdScorllX{

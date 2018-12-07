@@ -8,10 +8,10 @@
           <i class="logo"></i>
           <div class="right">
             <div class="search" @click="$router.replace('/home')">
-              <i clsss="search1"></i>
+              <i class="search1"></i>
             </div>
             <div class="cart" @click="$router.replace('/shopcart')">
-              <i clsss="cart1"></i>
+              <i class="cart1"></i>
             </div>
           </div>
         </div>
@@ -45,9 +45,9 @@
         padding: 0 .21333*75/@rem 0 .32*75/@rem;
         height: 1.17333*75/@rem;
         display: flex;
-         -webkit-box-align: center;
+          -webkit-box-align: center;
         align-items: center;
-         -webkit-box-pack: justify;
+          -webkit-box-pack: justify;
         justify-content: space-between;
         position: relative;
         .shouye{
@@ -65,7 +65,7 @@
           position: absolute;
           top: 0;
           bottom: 0;
-          left: 0;
+          left: 0px;
           right: 0;
           margin: auto;
           width: 2.29333*75/@rem;
@@ -82,7 +82,7 @@
           width: 20%;
           margin-left: auto;
           margin-right: .6*75/@rem;
-          margin-top: -0.2*75/@rem;
+          margin-top: -.2*75/@rem;
           .search{
             margin-right: .26667*75/@rem;
             text-decoration: none;
@@ -124,4 +124,5 @@
     }
   }
 </style>
+
 
